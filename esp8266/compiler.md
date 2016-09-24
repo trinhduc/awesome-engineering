@@ -86,11 +86,25 @@ make
 ```
 - Và bây giờ bạn có khoảng 30 phút, trong khi chờ build trình biên dịch
 - Sau khi build xong trình biên dịch thành công, ta add dòng lệnh
-`export PATH=$PATH:/tools/esp8266/compiler/crosstool-NG/builds/xtensa-lx106-elf/bin`
+```
+    export PATH=$PATH:/opt/esp8266/compiler/crosstool-NG/builds/xtensa-lx106-elf/bin
+```
+    + Hoặc mở file .bash_profile với sublim
+```
+    subl ~/.bash_profile
+```
+    + paste và lưu
+    ```
+        export PATH=$PATH:/opt/esp8266/compiler/crosstool-NG/builds/xtensa-lx106-elf/bin
+    ```
 - Sau đó update ENV với lệnh
-`source ~/.bash_profile`
+```
+    source ~/.bash_profile
+```
 - Để biết thành công hay chưa ta test với lệnh
-`xtensa-lx106-elf-gcc -v`
+```
+    xtensa-lx106-elf-gcc -v
+```
 - Cài đặt esptool.py
 ```
     cd /tools/esp8266
@@ -99,19 +113,28 @@ make
 - Tải bản SDK mới nhất![ tại đây ](https://espressif.com/en/support/download/sdks-demos) để vào folder SDK tạo lúc đầu
 - Tải các file: libc, libhal, include 
 ```
-    cd /tools/esp8266/compiler/crosstool-NG/builds/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/usr
-    wget -O lib/libc.a https://github.com/esp8266/esp8266-wiki/raw/master/libs/libc.a
-    wget -O lib/libhal.a https://github.com/esp8266/esp8266-wiki/raw/master/libs/libhal.a
-    wget -O include.tgz https://github.com/esp8266/esp8266-wiki/raw/master/include.tgz
+    cd /opt/esp8266/compiler/crosstool-NG/builds/xtensa-lx106-elf/xtensa-lx106-elf/sysroot/usr
+```
+```
+    sudo wget -O lib/libc.a https://github.com/esp8266/esp8266-wiki/raw/master/libs/libc.a
+```
+```
+    sudo wget -O lib/libhal.a https://github.com/esp8266/esp8266-wiki/raw/master/libs/libhal.a
+```
+```
+    sudo wget -O include.tgz https://github.com/esp8266/esp8266-wiki/raw/master/include.tgz
+```
+```
     tar -xvzf include.tgz
-
 ```
-- Cuối cùng ta tải esp-8266 tại ![https://github.com/tuanpmt/esp_mqtt](https://github.com/tuanpmt/esp_mqtt) và tận hưởng thành quả
+- Cuối cùng ta tải esp-8266 tại ![https://github.com/tuanpmt/esp_mqtt](https://github.com/tuanpmt/esp_mqtt)
 ```
-cd /tools/esp8266
-mkdir projects
-cd projects
-git clone https://github.com/tuanpmt/esp_mqtt
-cd esp_mqtt
-make
+    cd /opt/esp8266
+    mkdir projects
+    cd projects
+    git clone https://github.com/tuanpmt/esp_mqtt
+    cd esp_mqtt
+    make
 ```
+- Nếu sau lệnh `make`, mà chương trình build không thành công thì, cần chú ý đường dẫn trong thông báo của quá trình build, nên sửa lại chính xác đường dẫn đó trong file `Makefile` tại `SDK_BASE` và `ESPTOOL` có trong folder `esp_8266` và thực hiện lại lệnh `make`
+- Sau một hoài thiệt là lâu build (5s), sẽ tạo được file `esp_mqtt.out`.
